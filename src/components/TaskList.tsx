@@ -1,6 +1,10 @@
 import React from "react";
 import useTodoStore from "../app/store";
 
+export interface ITestState {
+  listItems: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+}
+
 interface TaskListProps {
   selectedDate: string;
   onTaskEdit: (task: any) => void;

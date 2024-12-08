@@ -26,8 +26,8 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
   }, [task]);
 
   const handleUpdateTask = () => {
-    if (title.trim()) {
-      updateTask(task?.id, { title, description });
+    if (task?.id && title.trim()) {
+      updateTask(task.id, { title, description });
       onClose();
     }
   };
