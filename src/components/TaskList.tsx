@@ -30,7 +30,7 @@ const TaskList: React.FC<TaskListProps> = ({ selectedDate, onTaskEdit }) => {
                     type="checkbox"
                     checked={task.completed}
                     onChange={() => toggleTask(task.id)}
-                    className="peer h-6 w-6 cursor-pointer transition-all appearance-none rounded-full border-2 border-black shadow hover:shadow-md checked:bg-slate-800 checked:border-slate-800"
+                    className="peer h-6 w-6 cursor-pointer transition-all appearance-none rounded-full border-2 border-black shadow hover:shadow-md checked:bg-black checked:border-black"
                     id="check-custom-style"
                   />
                   <span className="absolute text-white opacity-0 peer-checked:opacity-100 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
