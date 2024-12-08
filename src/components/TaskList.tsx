@@ -16,8 +16,7 @@ const TaskList: React.FC<TaskListProps> = ({ selectedDate, onTaskEdit }) => {
   const filteredTasks = tasks.filter((task) => task.date === selectedDate);
 
   return (
-    <div className="p-4 space-y-4 pt-0 overflow-y-scroll">
-      <p className="text-black font-bold">Today</p>
+    <div className="p-4 space-y-4">
       {filteredTasks.length > 0 ? (
         filteredTasks.map((task) => (
           <div

@@ -24,38 +24,53 @@ const Home: React.FC = () => {
 
   const getDayClass = (day: dayjs.Dayjs, selectedDate: string): string => {
     if (selectedDate === day.format("YYYY-MM-DD")) {
-      return "text-white"; // Selected date
+      return "text-white";
     } else if (day.isAfter(dayjs(), "day")) {
-      return "text-gray-400"; // Upcoming day
+      return "text-gray-400";
     } else {
-      return "text-black"; // Past or current unselected day
+      return "text-black";
     }
   };
 
+  const formatSelectedDate = (selectedDate: string) => {
+    const today = dayjs();
+    const selectedDay = dayjs(selectedDate);
+
+    // Compare selected date with today
+    if (selectedDay.isSame(today, "day")) {
+      return "Today";
+    }
+    if (selectedDay.isSame(today.subtract(1, "day"), "day")) {
+      return "Yesterday";
+    }
+    if (selectedDay.isSame(today.add(1, "day"), "day")) {
+      return "Tomorrow";
+    }
+
+    return selectedDay.format("dddd, DD");
+  };
+
   return (
-    <main className="min-h-screen bg-gradient-to-b from-gray-200 to-gray-50 overflow-hidden">
-      <div className="max-w-lg mx-auto">
-        <h1 className="font-extrabold bg-white text-black text-xl px-4 py-2">
+    <main className="min-h-screen bg-gradient-to-b from-gray-200 to-gray-50">
+      <div className="max-w-lg mx-auto overflow-hidden">
+        <h1 className="font-extrabold bg-white text-black text-2xl px-4 py-2">
           onday
         </h1>
         <header className="flex justify-center items-center bg-white rounded-br-3xl rounded-bl-3xl shadow-xl shadow-gray-200 p-4 mb-6">
           {Array.from({ length: 7 }, (_, i) => {
-            // Calculate days dynamically: 3 days before, today, 3 days after
             const day = dayjs().add(i - 3, "day");
 
             return (
               <div
                 key={day.format("YYYY-MM-DD")}
                 onClick={() => handleDateSelect(day.format("YYYY-MM-DD"))}
-                className={`flex flex-col items-center justify-center p-2 mx-2 rounded-lg ${
+                className={`flex flex-col items-center justify-center p-2 px-3 mx-1.5 rounded-lg ${
                   selectedDate === day.format("YYYY-MM-DD")
                     ? "bg-black text-white"
                     : "text-gray-400"
                 }`}
               >
-                <p className="text-xs font-bold">
-                  {day.format("dd").charAt(0)}
-                </p>
+                <p className="text-xs">{day.format("dd").charAt(0)}</p>
                 <p
                   className={`text-sm font-bold ${getDayClass(day, selectedDate)}`}
                 >
@@ -65,6 +80,9 @@ const Home: React.FC = () => {
             );
           })}
         </header>
+        <p className="text-black font-bold px-4">
+          {formatSelectedDate(selectedDate)}
+        </p>
         <TaskList selectedDate={selectedDate} onTaskEdit={handleTaskEdit} />
       </div>
       <div>
